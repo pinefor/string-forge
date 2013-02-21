@@ -1,5 +1,5 @@
 <?php
-namespace StringForge\Extensions\es_ES;
+namespace StringForge\Extensions\it_IT;
 use StringForge\Extension;
 use StringForge\StringForge;
 

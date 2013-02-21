@@ -1,5 +1,5 @@
 <?php
-namespace StringForge\Extensions\es_ES;
+namespace StringForge\Extensions\es_AR;
 use StringForge\Extension;
 use StringForge\StringForge;
 
@@ -12,7 +12,7 @@ class PostalCode implements Extension {
 
     public function filterPostalCode($string) {
         if ( preg_match(
-            '~.*?\b([A-HJ-TP-Z]{1}[0-9]{4}[A-Z]{3})\b.*~',
+            '~.*?\b([A-HJ-TP-Z][0-9]{4}[A-Z]{3})\b.*~',
             $string,
             $matches
         ) ) {
