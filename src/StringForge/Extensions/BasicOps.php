@@ -19,20 +19,7 @@ class BasicOps implements Extension {
     }
 
     public function asciify($string, $saveChars = false) {
-        if ( func_num_args() == 2 ) {
-            if ( !is_array($saveChars) ) {
-                throw new \InvalidArgumentException( sprintf(
-                    'Type mismatch. Received %s when array was expected.',
-                    gettype($saveChars)
-                ));
-            }
-            if ( count($saveChars) == 0 ) {
-                throw new \InvalidArgumentException(
-                    'Invalid argument. $saveChars cannot be empty.'
-                );
-            }
-        }
-        if ($saveChars) {
+        if ( $saveChars !== false ) {
             foreach($saveChars as $key => $char) {
                 $string = preg_replace(
                     '/' . $char . '/u',
@@ -56,39 +43,21 @@ class BasicOps implements Extension {
     }
 
     public function removeAlpha($string, $caseSens = false) {
-        if ( !is_bool($caseSens) ) {
-            throw new \InvalidArgumentException( sprintf(
-                'Type mismatch. Received %s when Boolean was expected.',
-                gettype($caseSens)
-            ));
-        }
-        $string = preg_replace('/[a-z]/' . ($caseSens ? '' : 'i'), '', $string );
+        $string = preg_replace('~[a-z]~' . ($caseSens ? '' : 'i'), '', $string );
         return $string;
     }
 
     public function onlyNum($string) {
-        $string = preg_replace( '/[^0-9]/', '', $string );
+        $string = preg_replace( '~[^0-9]~', '', $string );
         return $string;
     }
 
     public function onlyAlpha($string, $caseSens = false) {
-        if ( !is_bool($caseSens) ) {
-            throw new \InvalidArgumentException( sprintf(
-                'Type mismatch. Received %s when Boolean was expected.',
-                gettype($caseSens)
-            ));
-        }
-        $string = preg_replace( '/[^a-z]/' . ($caseSens ? '' : 'i'), '', $string );
+        $string = preg_replace( '~[^a-z]~' . ($caseSens ? '' : 'i'), '', $string );
         return $string;
     }
 
     public function onlyAlphaNum($string, $removeSpaces = true ) {
-        if ( !is_bool($removeSpaces) ) {
-            throw new \InvalidArgumentException( sprintf(
-                'Type mismatch. Received %s when Boolean was expected.',
-                gettype($removeSpaces)
-            ));
-        }
         $string = preg_replace(
             '/[^a-z0-9' . ( $removeSpaces ? '' : '\s' ) . ']/i',
             '',
@@ -98,17 +67,6 @@ class BasicOps implements Extension {
     }
 
     public function removeChars($string, $chars) {
-        if ( !is_array($chars) ) {
-            throw new \InvalidArgumentException( sprintf(
-                'Type mismatch. Received %s when array was expected.',
-                gettype($chars)
-            ));
-        }
-        if ( count($chars) == 0 ) {
-            throw new \InvalidArgumentException(
-                'Invalid argument. $chars cannot be empty.'
-            );
-        }
         $string = preg_replace(
             '/' . implode( '|', array_map( 'preg_quote', $chars ) ) . '/u',
             '',
