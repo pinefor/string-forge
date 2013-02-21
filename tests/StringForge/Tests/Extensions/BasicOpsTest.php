@@ -18,11 +18,18 @@ class BasicOpsTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testAsciify() {
+        $locales = [
+            'es_ES', 'es_CL', 'es_AR', 'it_IT', 'pt_PT', 'pt_BR', 'en_GB'
+        ];
         $string = new String($this->forge, '¡¿ÁaéEúüÜèóïçÇñÑ?!');
-        $this->assertSame('AaeEuuUeoicCnN?!',
-            (string)$string
-                ->asciify()
-        );
+
+        foreach ($locales as $locale) {
+            setlocale(LC_ALL, $locale);
+            $this->assertSame('AaeEuuUeoicCnN?!',
+                (string)$string
+                    ->asciify()
+            );
+        }
     }
 
     public function testAsciifySavingChars() {
