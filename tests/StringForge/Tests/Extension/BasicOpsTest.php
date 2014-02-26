@@ -1,6 +1,6 @@
 <?php
-namespace StringForge\Tests\Extensions;
-use StringForge\Extensions\BasicOps;
+namespace StringForge\Tests\Extension;
+use StringForge\Extension\BasicOps;
 use StringForge\StringForge;
 use StringForge\String;
 

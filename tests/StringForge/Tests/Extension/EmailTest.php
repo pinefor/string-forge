@@ -1,6 +1,6 @@
 <?php
-namespace StringForge\Tests\Extensions;
-use StringForge\Extensions\Email;
+namespace StringForge\Tests\Extension;
+use StringForge\Extension\Email;
 use StringForge\StringForge;
 use StringForge\String;
 

@@ -5,6 +5,7 @@ use ReflectionObject;
 use ReflectionMethod;
 use InvalidArgumentException;
 
+
 class StringForge
 {
     protected $methods = [];

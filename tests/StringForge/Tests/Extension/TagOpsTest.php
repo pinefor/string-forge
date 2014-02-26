@@ -1,6 +1,6 @@
 <?php
-namespace StringForge\Tests\Extensions;
-use StringForge\Extensions\TagOps;
+namespace StringForge\Tests\Extension;
+use StringForge\Extension\TagOps;
 use StringForge\StringForge;
 use StringForge\String;
 
