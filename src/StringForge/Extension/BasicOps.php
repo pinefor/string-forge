@@ -5,51 +5,30 @@ use StringForge\StringForge;
 
 class BasicOps implements Extension
 {
-    public function asciify($string, $saveChars = false)
-    {
-        if ($saveChars !== false) {
-            foreach ($saveChars as $key => $char) {
-                $string = preg_replace(
-                    '/' . $char . '/u',
-                    '___' . $key . '___',
-                    $string
-                );
-            }
-            $string = $this->ASCIItranslit($string);
-            foreach ($saveChars as $key => $char) {
-                $string = str_replace('___' . $key . '___',$char,$string);
-            }
-        } else {
-            $string = $this->ASCIItranslit($string);
-        }
-
-        return $string;
-    }
-
     public function removeNum($string)
     {
-        $string = preg_replace( '~[0-9]~', '', $string );
+        $string = preg_replace('~[0-9]~', '', $string);
 
         return $string;
     }
 
     public function removeAlpha($string, $caseSens = false)
     {
-        $string = preg_replace('~[a-z]~' . ($caseSens ? '' : 'i'), '', $string );
+        $string = preg_replace('~[a-z]~' . ($caseSens ? '' : 'i'), '', $string);
 
         return $string;
     }
 
     public function onlyNum($string)
     {
-        $string = preg_replace( '~[^0-9]~', '', $string );
+        $string = preg_replace('~[^0-9]~', '', $string );
 
         return $string;
     }
 
     public function onlyAlpha($string, $caseSens = false)
     {
-        $string = preg_replace( '~[^a-z]~' . ($caseSens ? '' : 'i'), '', $string );
+        $string = preg_replace('~[^a-z]~' . ($caseSens ? '' : 'i'), '', $string);
 
         return $string;
     }

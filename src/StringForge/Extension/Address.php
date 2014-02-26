@@ -19,7 +19,7 @@ class Address implements Extension
 
     public function filterAddress($string, $locale)
     {
-        $this->excetionIfLocaleNotSupported($locale);
+        $this->throwExceptionIfLocaleNotSupported($locale);
 
         $words = $this->filterAddress[$locale];
         $regexp = '/' . implode('|', array_map('preg_quote', $words)) . '/u';
@@ -29,7 +29,7 @@ class Address implements Extension
         return $string;
     }
 
-    protected function excetionIfLocaleNotSupported($locale)
+    protected function throwExceptionIfLocaleNotSupported($locale)
     {
         if (isset($this->filterAddress[$locale])) {
             return;

@@ -18,7 +18,7 @@ class PostalCode implements Extension
 
     public function filterPostalCode($string, $locale)
     {
-        $this->excetionIfLocaleNotSupported($locale);
+        $this->throwExceptionIfLocaleNotSupported($locale);
 
         if (preg_match($this->regexps[$locale], $string, $matches)) {
             return $matches[1];
@@ -27,7 +27,7 @@ class PostalCode implements Extension
         }
     }
 
-    protected function excetionIfLocaleNotSupported($locale)
+    protected function throwExceptionIfLocaleNotSupported($locale)
     {
         if (isset($this->regexps[$locale])) {
             return;

@@ -12,6 +12,19 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase
     const EXAMPLE_METHOD_WITH_LOCALE = 'bar';
     const EXAMPLE_METHOD_WITH_LOCALE_AND_ARGS = 'baz';
     const EXAMPLE_INVALID_METHOD = 'qux';
+    const EXAMPLE_BUILTIN_METHOD = 'asciify';
+
+    public function testConstructor()
+    {
+        $forge = new StringForge();
+        $this->assertTrue($forge->hasMethod(self::EXAMPLE_BUILTIN_METHOD));
+
+        $forge = new StringForge(false);
+        $this->assertFalse($forge->hasMethod(self::EXAMPLE_BUILTIN_METHOD));
+
+        $forge = new StringForge(true);
+        $this->assertTrue($forge->hasMethod(self::EXAMPLE_BUILTIN_METHOD));
+    }
 
     public function testAdd()
     {

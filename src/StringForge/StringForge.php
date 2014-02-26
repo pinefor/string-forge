@@ -4,11 +4,28 @@ namespace StringForge;
 use ReflectionObject;
 use ReflectionMethod;
 use InvalidArgumentException;
-
+use StringForge\Extension;
 
 class StringForge
 {
     protected $methods = [];
+
+    public function __construct($autoLoadBuiltInExtension = true)
+    {
+        if ($autoLoadBuiltInExtension) {
+            $this->loadBuiltInExtension();
+        }
+    }
+
+    protected function loadBuiltInExtension()
+    {
+        $this->add(new Extension\Address());
+        $this->add(new Extension\Asciify());
+        $this->add(new Extension\BasicOps());
+        $this->add(new Extension\Email());
+        $this->add(new Extension\PostalCode());
+        $this->add(new Extension\TagOps());
+    }
 
     public function add(Extension $extension)
     {
