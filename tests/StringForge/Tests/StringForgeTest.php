@@ -1,5 +1,7 @@
 <?php
 namespace StringForge\Tests;
+
+use Mockery as m;
 use StringForge\StringForge;
 
 class StringForgeTest extends \PHPUnit_Framework_TestCase
@@ -8,10 +10,10 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase
     {
         $forge = new StringForge;
 
-        $this->assertFalse($forge->hasFunction('exampleFunction'));
+        $this->assertFalse($forge->hasMethod('exampleFunction'));
 
         $forge->add(new MockExtension);
-        $this->assertTrue($forge->hasFunction('exampleFunction'));
+        $this->assertTrue($forge->hasMethod('exampleFunction'));
     }
 
     public function testExecute()
