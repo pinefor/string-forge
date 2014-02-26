@@ -10,125 +10,87 @@ class BasicOpsTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->forge = new StringForge();
-        $this->forge->add(new BasicOps());
-    }
-
-    public function tearDown()
-    {
-        $this->forge = NULL;
-    }
-
-    public function testAsciify()
-    {
-        $locales = [
-            'es_ES', 'es_CL', 'es_AR', 'it_IT', 'pt_PT', 'pt_BR', 'en_GB'
-        ];
-        $string = new String($this->forge, '¡¿ÁaéEúüÜèóïçÇñÑ?!');
-
-        foreach ($locales as $locale) {
-            setlocale(LC_ALL, $locale);
-            $this->assertSame('AaeEuuUeoicCnN?!',
-                (string) $string
-                    ->asciify()
-            );
-        }
-    }
-
-    public function testAsciifySavingChars()
-    {
-        $string = new String($this->forge, '¡¿ÁaéEúüÜèóïçÇñÑ?!');
-        $this->assertSame('AaeEuuUeoiçÇñÑ?!',
-            (string) $string
-                ->asciify(['ñ','Ñ','Ç','ç'])
-        );
+        $this->extension = new BasicOps();
     }
 
     public function testRemoveNum()
     {
-        $string = new String($this->forge, 'as3i23 4jh523.');
-        $this->assertSame('asi jh.',
-            (string) $string
-                ->removeNum()
-        );
+        $string = 'as3i23 4jh523.';
+        $expected = 'asi jh.';
+
+        $this->assertSame($expected, $this->extension->removeNum($string));
     }
 
     public function testRemoveAlpha()
     {
-        $string = new String($this->forge, 'as3i23 4jh523.');
-        $this->assertSame('323 4523.',
-            (string) $string
-                ->removeAlpha()
-        );
+        $string = 'as3i23 4jh523.';
+        $expected = '323 4523.';
+
+        $this->assertSame($expected, $this->extension->removeAlpha($string));
     }
 
     public function testOnlyNum()
     {
-        $string = new String($this->forge, 'as3i23 4jh523.');
-        $this->assertSame('3234523',
-            (string) $string
-                ->onlyNum()
-        );
+        $string = 'as3i23 4jh523.';
+        $expected = '3234523';
+
+        $this->assertSame($expected, $this->extension->onlyNum($string));
     }
 
     public function testOnlyAlpha()
     {
-        $string = new String($this->forge, 'as3i23 4jh523.');
-        $this->assertSame('asijh',
-            (string) $string
-                ->onlyAlpha()
-        );
+        $string = 'as3i23 4jh523.';
+        $expected = 'asijh';
+
+        $this->assertSame($expected, $this->extension->onlyAlpha($string));
     }
 
     public function testOnlyAlphaNum()
     {
-        $string = new String($this->forge, 'as3i23 4jh523.');
-        $this->assertSame('as3i234jh523',
-            (string) $string
-                ->onlyAlphaNum()
-        );
+        $string = 'as3i23 4jh523.';
+        $expected = 'as3i234jh523';
 
-        $string = new String($this->forge, 'as3i23 4jh523.');
-        $this->assertSame('as3i23 4jh523',
-            (string) $string
-                ->onlyAlphaNum(false)
-        );
+        $this->assertSame($expected, $this->extension->onlyAlphaNum($string));
+    }
+
+    public function testOnlyAlphaNumWithSpaces()
+    {
+        $string = 'as3i23 4jh523.';
+        $expected = 'as3i23 4jh523';
+
+        $this->assertSame($expected, $this->extension->onlyAlphaNum($string, false));
     }
 
     public function testRemoveChars()
     {
-        $string = new String($this->forge, 'I, love ice-cream [indeed].');
-        $this->assertSame('I love icecream indeed',
-            (string) $string
-                ->removeChars(['.',',','-','[',']'])
-        );
+        $string = 'I, love ice-cream [indeed].';
+        $expected = 'I love icecream indeed';
+
+        $this->assertSame($expected, $this->extension->removeChars($string, ['.',',','-','[',']']));
     }
 
     public function testRemoveParentheses()
     {
-        $string = new String($this->forge, 'I (John Doe), love ice-cream [indeed].');
-        $this->assertSame('I , love ice-cream [indeed].',
-            (string) $string
-                ->removeParentheses()
-        );
+        $string = 'I (John Doe), love ice-cream [indeed].';
+        $expected = 'I , love ice-cream [indeed].';
+
+        $this->assertSame($expected, $this->extension->removeParentheses($string));
     }
 
     public function testReduceSpaces()
     {
-        $string = new String($this->forge, 'I  love        icecream   . ');
-        $this->assertSame('I love icecream . ',
-            (string) $string
-                ->reduceSpaces()
-        );
+        $string = 'I  love        icecream   . ';
+        $expected = 'I love icecream . ';
+
+        $this->assertSame($expected, $this->extension->reduceSpaces($string));
     }
 
     public function testSentenceSpacing()
     {
-        $string = new String($this->forge, 'Doctor  ,I  love        icecream(at all) .[But I do hate pudding... ] ');
-        $this->assertSame('Doctor, I love icecream (at all). [But I do hate pudding...]',
-            (string) $string
-                ->sentenceSpacing()
-        );
+        $string = 'Doctor  ,I  love        icecream(at all) .[But I do hate pudding... ] ';
+        $expected = 'Doctor, I love icecream (at all). [But I do hate pudding...]';
+
+        $this->assertSame($expected, $this->extension->sentenceSpacing($string));
     }
 
 }

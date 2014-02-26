@@ -3,16 +3,11 @@ namespace StringForge;
 
 use ReflectionObject;
 use ReflectionMethod;
+use InvalidArgumentException;
 
 class StringForge
 {
-    protected $locale;
     protected $methods = [];
-
-    public function __construct($locale)
-    {
-        $this->locale = $locale;
-    }
 
     public function add(Extension $extension)
     {
@@ -34,7 +29,7 @@ class StringForge
         $methodName = $method->name;
 
         if ( $this->hasMethod($methodName) ) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'Another method with the name "%s" already exists.', 
                 $methodName
             ));
@@ -48,21 +43,25 @@ class StringForge
         return isset($this->methods[$method]);
     }
 
-    public function execute($method, $string, $args)
+    public function execute($method, $locale, $string, $args)
     {
-        if ( !$this->hasMethod($method) ) {
+        if (!$this->hasMethod($method)) {
             throw new \InvalidArgumentException(sprintf(
-                'Unknown method "%s".', $method));
+                'Unknown method "%s".', $method
+            ));
         }
 
         return call_user_func_array(
             $this->methods[$method], 
-            array_merge([$string], $args)
+            array_merge([$string, $locale], $args)
         );
     }
 
-    public function create($string)
+    public function create($string, $locale = null)
     {
-        return new String($this, $string);
+        $object = new String($this, $locale);
+        $object->setValue($string);
+
+        return $object;
     }
 }

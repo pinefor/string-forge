@@ -5,20 +5,6 @@ use StringForge\StringForge;
 
 class BasicOps implements Extension
 {
-    public function register(StringForge $forge)
-    {
-        $forge->register('asciify', [$this, 'asciify']);
-        $forge->register('removeNum', [$this, 'removeNum']);
-        $forge->register('removeAlpha', [$this, 'removeAlpha']);
-        $forge->register('onlyNum', [$this, 'onlyNum']);
-        $forge->register('onlyAlpha', [$this, 'onlyAlpha']);
-        $forge->register('onlyAlphaNum', [$this, 'onlyAlphaNum']);
-        $forge->register('removeChars', [$this, 'removeChars']);
-        $forge->register('removeParentheses', [$this, 'removeParentheses']);
-        $forge->register('reduceSpaces', [$this, 'reduceSpaces']);
-        $forge->register('sentenceSpacing', [$this, 'sentenceSpacing']);
-    }
-
     public function asciify($string, $saveChars = false)
     {
         if ($saveChars !== false) {
@@ -105,16 +91,19 @@ class BasicOps implements Extension
     public function sentenceSpacing($string)
     {
         $string = $this->reduceSpaces($string);
+
         $string = preg_replace(
             '~([a-z0-9])([[{(])~', // Put space betw. string and opening.
             '$1 $2',
             $string
         );
+
         $string = preg_replace(
             '~([.:;,)\]}])(?!\s|[0-9.:;,)\]}])~', // Put space after stop.
             '$1 ',
             $string
         );
+
         $string = preg_replace(
             [
                 '~([a-z0-9]) ([)\]}.,:;])~i', // Remove space betw string and stop.

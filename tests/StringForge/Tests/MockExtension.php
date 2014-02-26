@@ -12,13 +12,21 @@ class MockExtension implements Extension
 
     }
 
-    public function exampleFunction($string)
+    // Plain
+    public function foo($string)
     {
         return strtoupper($string);
     }
 
-    public function exampleFunctionWithArgs($string, $one, $two)
+    // With locale
+    public function bar($string, $locale)
     {
-        return $string . '-' . $one . '-' . $two;
+        return implode('-', func_get_args());
+    }
+
+    // With locale and args
+    public function baz($string, $locale, $one, $two)
+    {
+        return implode('-', func_get_args());
     }
 }

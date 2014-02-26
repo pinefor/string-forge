@@ -10,33 +10,31 @@ class EmailTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->forge = new StringForge();
-        $this->forge->add(new Email());
+        $this->extension = new Email();
     }
 
-    public function tearDown()
+    public function testFilterEmailValid()
     {
-        $this->forge = NULL;
+        $string = 'foo bar @ my place philip+office@foo.com second-email@example.com';
+        $expected = 'philip+office@foo.com';
+
+        $this->assertSame($expected, $this->extension->filterEmail($string));
     }
 
-    public function testFilterEmail()
+    public function testFilterEmailInvalid()
     {
-        $string = new String($this->forge, 'foo bar @ my place philip+office@yunait.com second-email@example.com');
-        $this->assertSame('philip+office@yunait.com',
-            (string) $string
-                ->filterEmail()
-        );
+        $string = 'foo bar @ my place (no email whatsoever)';
+        $expected = '';
 
-        $string = new String($this->forge, 'foo bar @ my place philip+office@invalid+email.com second-email@example.com');
-        $this->assertSame('second-email@example.com',
-            (string) $string
-                ->filterEmail()
-        );
+        $this->assertSame($expected, $this->extension->filterEmail($string));
 
-        $string = new String($this->forge, 'foo bar @ my place (no email whatsoever)');
-        $this->assertSame('',
-            (string) $string
-                ->filterEmail()
-        );
+    }
+
+    public function testFilterEmailBoth()
+    {
+        $string = 'foo bar @ my place philip+office@invalid+email.com second-email@example.com';
+        $expected = 'second-email@example.com';
+
+        $this->assertSame($expected, $this->extension->filterEmail($string));
     }
 }

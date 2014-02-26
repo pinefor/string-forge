@@ -1,28 +1,38 @@
 <?php
 namespace StringForge\Tests;
-use StringForge\StringForge;
+
 use StringForge\String;
+use Mockery as m;
 
 class StringTest extends  \PHPUnit_Framework_TestCase
 {
-    public function testCall()
-    {
-        $forge = new StringForge;
-        $forge->add(new MockExtension);
+    const EXAMPLE_LOCALE = 'en_US';
+    const EXAMPLE_STRING = 'foo';
 
-        $string = new String($forge, 'string');
-        $this->assertSame('string', (string) $string);
+    public function testSetValue()
+    {
+        $forge = m::mock('StringForge\StringForge');
+
+        $string = new String($forge);
+        $string->setValue(self::EXAMPLE_STRING);
+
+        $this->assertSame(self::EXAMPLE_STRING, (string) $string);
     }
 
-    public function testMethodChaning()
+    public function testMagicCall()
     {
-        $forge = new StringForge;
-        $forge->add(new MockExtension);
+        $args = ['foo', 'bar'];
 
-        $string = new String($forge, 'string');
-        $this->assertSame('STRING-one-two', (string) $string
-            ->exampleFunction()
-            ->exampleFunctionWithArgs('one', 'two')
-        );
+        $forge = m::mock('StringForge\StringForge');
+        $forge
+            ->shouldReceive('execute')
+            ->with('bar', self::EXAMPLE_LOCALE, self::EXAMPLE_STRING, $args)
+            ->once();
+
+        $string = new String($forge, self::EXAMPLE_LOCALE);
+        $string->setValue(self::EXAMPLE_STRING);
+
+        $this->assertSame($string, $string->bar($args[0], $args[1]));
     }
+
 }
