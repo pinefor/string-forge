@@ -1,10 +1,11 @@
 <?php
 namespace StringForge\Tests;
 use StringForge\StringForge;
-use StringForge\Extension;
 
-class StringForgeTest extends \PHPUnit_Framework_TestCase { 
-    public function testAdd() {
+class StringForgeTest extends \PHPUnit_Framework_TestCase
+{
+    public function testAdd()
+    {
         $forge = new StringForge;
 
         $this->assertFalse($forge->hasFunction('exampleFunction'));
@@ -13,7 +14,8 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($forge->hasFunction('exampleFunction'));
     }
 
-    public function testExecute() {
+    public function testExecute()
+    {
         $forge = new StringForge;
         $forge->add(new MockExtension);
 
@@ -21,7 +23,8 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('PRUEBA', $string);
     }
 
-    public function testExecuteWithArgs() {
+    public function testExecuteWithArgs()
+    {
         $forge = new StringForge;
         $forge->add(new MockExtension);
 
@@ -32,17 +35,18 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase {
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testExecuteNotValidFuncion() {
+    public function testExecuteNotValidFuncion()
+    {
         $forge = new StringForge;
         $forge->add(new MockExtension);
 
         $string = $forge->execute('notValidFuncion', 'prueba', []);
     }
 
-    public function testCreate() {
+    public function testCreate()
+    {
         $forge = new StringForge;
         $this->assertInstanceOf('StringForge\String', $forge->create('test'));
-        $this->assertSame('test', (string)$forge->create('test'));
+        $this->assertSame('test', (string) $forge->create('test'));
     }
 }
-

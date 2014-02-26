@@ -4,20 +4,23 @@ use StringForge\Extensions\BasicOps;
 use StringForge\StringForge;
 use StringForge\String;
 
-class BasicOpsTest extends \PHPUnit_Framework_TestCase {
-
+class BasicOpsTest extends \PHPUnit_Framework_TestCase
+{
     private $forge;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->forge = new StringForge();
         $this->forge->add(new BasicOps());
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->forge = NULL;
     }
 
-    public function testAsciify() {
+    public function testAsciify()
+    {
         $locales = [
             'es_ES', 'es_CL', 'es_AR', 'it_IT', 'pt_PT', 'pt_BR', 'en_GB'
         ];
@@ -26,97 +29,106 @@ class BasicOpsTest extends \PHPUnit_Framework_TestCase {
         foreach ($locales as $locale) {
             setlocale(LC_ALL, $locale);
             $this->assertSame('AaeEuuUeoicCnN?!',
-                (string)$string
+                (string) $string
                     ->asciify()
             );
         }
     }
 
-    public function testAsciifySavingChars() {
+    public function testAsciifySavingChars()
+    {
         $string = new String($this->forge, '¡¿ÁaéEúüÜèóïçÇñÑ?!');
         $this->assertSame('AaeEuuUeoiçÇñÑ?!',
-            (string)$string
+            (string) $string
                 ->asciify(['ñ','Ñ','Ç','ç'])
         );
     }
 
-    public function testRemoveNum() {
+    public function testRemoveNum()
+    {
         $string = new String($this->forge, 'as3i23 4jh523.');
         $this->assertSame('asi jh.',
-            (string)$string
+            (string) $string
                 ->removeNum()
         );
     }
 
-    public function testRemoveAlpha() {
+    public function testRemoveAlpha()
+    {
         $string = new String($this->forge, 'as3i23 4jh523.');
         $this->assertSame('323 4523.',
-            (string)$string
+            (string) $string
                 ->removeAlpha()
         );
     }
 
-    public function testOnlyNum() {
+    public function testOnlyNum()
+    {
         $string = new String($this->forge, 'as3i23 4jh523.');
         $this->assertSame('3234523',
-            (string)$string
+            (string) $string
                 ->onlyNum()
         );
     }
 
-    public function testOnlyAlpha() {
+    public function testOnlyAlpha()
+    {
         $string = new String($this->forge, 'as3i23 4jh523.');
         $this->assertSame('asijh',
-            (string)$string
+            (string) $string
                 ->onlyAlpha()
         );
     }
 
-    public function testOnlyAlphaNum() {
+    public function testOnlyAlphaNum()
+    {
         $string = new String($this->forge, 'as3i23 4jh523.');
         $this->assertSame('as3i234jh523',
-            (string)$string
+            (string) $string
                 ->onlyAlphaNum()
         );
 
         $string = new String($this->forge, 'as3i23 4jh523.');
         $this->assertSame('as3i23 4jh523',
-            (string)$string
+            (string) $string
                 ->onlyAlphaNum(false)
         );
     }
 
-    public function testRemoveChars() {
+    public function testRemoveChars()
+    {
         $string = new String($this->forge, 'I, love ice-cream [indeed].');
         $this->assertSame('I love icecream indeed',
-            (string)$string
+            (string) $string
                 ->removeChars(['.',',','-','[',']'])
         );
     }
 
-    public function testRemoveParentheses() {
+    public function testRemoveParentheses()
+    {
         $string = new String($this->forge, 'I (John Doe), love ice-cream [indeed].');
         $this->assertSame('I , love ice-cream [indeed].',
-            (string)$string
+            (string) $string
                 ->removeParentheses()
         );
     }
 
-    public function testReduceSpaces() {
+    public function testReduceSpaces()
+    {
         $string = new String($this->forge, 'I  love        icecream   . ');
         $this->assertSame('I love icecream . ',
-            (string)$string
+            (string) $string
                 ->reduceSpaces()
         );
     }
 
-    public function testSentenceSpacing() {
+    public function testSentenceSpacing()
+    {
         $string = new String($this->forge, 'Doctor  ,I  love        icecream(at all) .[But I do hate pudding... ] ');
         $this->assertSame('Doctor, I love icecream (at all). [But I do hate pudding...]',
-            (string)$string
+            (string) $string
                 ->sentenceSpacing()
         );
     }
 
 }
-

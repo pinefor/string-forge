@@ -3,14 +3,15 @@ namespace StringForge\Extensions;
 use StringForge\Extension;
 use StringForge\StringForge;
 
-class Email implements Extension {
-
-
-    public function register(StringForge $forge) {
+class Email implements Extension
+{
+    public function register(StringForge $forge)
+    {
         $forge->register('filterEmail', [$this, 'filterEmail']);
     }
 
-    public function filterEmail($string) {
+    public function filterEmail($string)
+    {
         if ( preg_match(
             '~.*?\b([a-z0-9._%+=-]+@(?:[a-z0-9-]+\.)+[a-z]{2,6})\b.*~i',
             $string,
