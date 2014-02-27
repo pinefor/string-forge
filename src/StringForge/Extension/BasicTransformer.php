@@ -53,4 +53,22 @@ class BasicTransformer implements Extension
 
         return implode(' ', $words);
     }
+
+    public function uniqueWords($string)
+    {
+        $words = explode(' ', $string);
+        $words = array_unique($words);
+
+        return implode(' ', $words);
+    }
+
+    public function htmlEntityEncode($string, $flags = ENT_HTML5, $encoding = 'UTF-8')
+    {
+        return htmlentities($string, $flags, $encoding);
+    }
+
+    public function htmlEntityDecode($string)
+    {
+        return html_entity_decode($string);
+    }
 }

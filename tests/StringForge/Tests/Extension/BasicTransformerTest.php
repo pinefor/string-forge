@@ -84,4 +84,27 @@ class BasicTransformerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $this->extension->sortWords($string));
     }
 
+    public function testUniqueWords()
+    {
+        $string = 'foo foo';
+        $expected = 'foo';
+
+        $this->assertSame($expected, $this->extension->uniqueWords($string));
+    }
+
+    public function testhtmlEntityEncode()
+    {
+        $string = 'foo € foo';
+        $expected = 'foo &euro; foo';
+
+        $this->assertSame($expected, $this->extension->htmlEntityEncode($string));
+    }
+
+    public function testhtmlEntityDecode()
+    {
+        $string = 'foo &euro; foo';
+        $expected = 'foo € foo';
+
+        $this->assertSame($expected, $this->extension->htmlEntityDecode($string));
+    }
 }
