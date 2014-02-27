@@ -12,7 +12,7 @@ Requirements
 Installation
 ------------
 
-The recommended way to install NewRelic/Silex is [through composer](http://getcomposer.org).
+The recommended way to install StringForge is [through composer](http://getcomposer.org).
 You can see [the package information on Packagist.](https://packagist.org/packages/mcuadros/silex-newrelic)
 
 ```JSON
@@ -31,7 +31,7 @@ use StringForge\StringForge;
 
 $forge = new StringForge();
 $stringObj = $forge->create('¡¿ÁaéE323úüÜèóïç232ÇñÑ?!');
-echo (string) $string->asciify()->removeNum();
+echo (string) $stringObj->asciify()->removeNum();
 //Returns: AaeEuuUeoicCnN?!
 ```
 
