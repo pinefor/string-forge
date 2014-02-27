@@ -45,4 +45,12 @@ class BasicTransformer implements Extension
     {
         return preg_replace($pattern, $replacement, $string);
     }
+
+    public function sortWords($string)
+    {
+        $words = explode(' ', $string);
+        sort($words, SORT_NATURAL);
+
+        return implode(' ', $words);
+    }
 }

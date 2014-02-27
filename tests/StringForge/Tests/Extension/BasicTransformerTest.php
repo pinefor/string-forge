@@ -75,4 +75,13 @@ class BasicTransformerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, $this->extension->regexpReplace($string, '/bar/i', 'foo'));
     }
+
+    public function testSortWords()
+    {
+        $string = 'foo bar';
+        $expected = 'bar foo';
+
+        $this->assertSame($expected, $this->extension->sortWords($string));
+    }
+
 }
