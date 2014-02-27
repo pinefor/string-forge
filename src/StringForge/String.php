@@ -12,6 +12,11 @@ class String
         $this->locale = $locale;
     }
 
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
     public function setValue($string)
     {
         $this->string = $string;

@@ -7,6 +7,8 @@ use StringForge\StringForge;
 class StringForgeTest extends \PHPUnit_Framework_TestCase
 {
     const EXAMPLE_LOCALE = 'en_US';
+    const EXAMPLE_LOCALE_GB = 'en_GB';
+
     const EXAMPLE_STRING = 'qux';
     const EXAMPLE_METHOD = 'foo';
     const EXAMPLE_METHOD_WITH_LOCALE = 'bar';
@@ -100,7 +102,22 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $forge = new StringForge;
-        $this->assertInstanceOf('StringForge\String', $forge->create('test'));
-        $this->assertSame('test', (string) $forge->create('test'));
+        $string = $forge->create('test', self::EXAMPLE_LOCALE);
+
+        $this->assertInstanceOf('StringForge\String', $string);
+        $this->assertSame('test', (string) $string);
+        $this->assertSame(self::EXAMPLE_LOCALE, $string->getLocale());
+    }
+
+    public function testCreateWithDefaultLocale()
+    {
+        setlocale(LC_MESSAGES, self::EXAMPLE_LOCALE_GB);
+
+        $forge = new StringForge;
+        $string = $forge->create('test');
+
+        $this->assertInstanceOf('StringForge\String', $string);
+        $this->assertSame('test', (string) $string);
+        $this->assertSame(self::EXAMPLE_LOCALE_GB, $string->getLocale());
     }
 }
