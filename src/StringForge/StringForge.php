@@ -32,6 +32,8 @@ class StringForge
     {
         $methods = $this->getPublicMethodsFromExtension($extension);
         foreach ($methods as $method) {
+            if ($method->name[0] == '_') continue;
+            
             $this->registerMethod($extension, $method);
         }
     }

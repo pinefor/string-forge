@@ -31,17 +31,17 @@ class BasicTransformer implements Extension
         return strtolower($string);
     }
 
-    public function replace($string, $search, $replace)
+    public function replace($string, $locale, $search, $replace)
     {
         return str_replace($search, $replace, $string);
     }
 
-    public function replaceCaseInsensitive($string, $search, $replace)
+    public function replaceCaseInsensitive($string, $locale, $search, $replace)
     {
         return str_ireplace($search, $replace, $string);
     }
 
-    public function regexpReplace($string, $pattern, $replacement)
+    public function regexpReplace($string, $locale, $pattern, $replacement)
     {
         return preg_replace($pattern, $replacement, $string);
     }
@@ -62,7 +62,7 @@ class BasicTransformer implements Extension
         return implode(' ', $words);
     }
 
-    public function htmlEntityEncode($string, $flags = ENT_HTML5, $encoding = 'UTF-8')
+    public function htmlEntityEncode($string, $locale, $flags = ENT_HTML5, $encoding = 'UTF-8')
     {
         return htmlentities($string, $flags, $encoding);
     }

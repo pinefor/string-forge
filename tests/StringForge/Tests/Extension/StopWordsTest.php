@@ -14,7 +14,6 @@ class StopWordsTest extends \PHPUnit_Framework_TestCase
         $this->extension = new StopWords();
     }
 
-
     /**
      * @dataProvider addressProvider
      */
@@ -54,6 +53,11 @@ class StopWordsTest extends \PHPUnit_Framework_TestCase
                 'es_ES', 
                 'me paso una cosa muy mala', 
                 'me paso  cosa  mala'
+            ],
+            [
+                'es_ES', 
+                'en algun caso, y en algún otro caso', 
+                '  caso,     caso'
             ],
             [
                 'en_GB', 

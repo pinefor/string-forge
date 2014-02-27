@@ -57,7 +57,7 @@ class BasicTransformerTest extends \PHPUnit_Framework_TestCase
         $string = 'BAR bar';
         $expected = 'BAR foo';
 
-        $this->assertSame($expected, $this->extension->replace($string, 'bar', 'foo'));
+        $this->assertSame($expected, $this->extension->replace($string, null, 'bar', 'foo'));
     }
 
     public function testReplaceCaseInsensitive()
@@ -65,7 +65,7 @@ class BasicTransformerTest extends \PHPUnit_Framework_TestCase
         $string = 'BAR bar';
         $expected = 'foo foo';
 
-        $this->assertSame($expected, $this->extension->replaceCaseInsensitive($string, 'bar', 'foo'));
+        $this->assertSame($expected, $this->extension->replaceCaseInsensitive($string, null, 'bar', 'foo'));
     }
 
     public function testRegexpReplace()
@@ -73,7 +73,7 @@ class BasicTransformerTest extends \PHPUnit_Framework_TestCase
         $string = 'BAR bar';
         $expected = 'foo foo';
 
-        $this->assertSame($expected, $this->extension->regexpReplace($string, '/bar/i', 'foo'));
+        $this->assertSame($expected, $this->extension->regexpReplace($string, null, '/bar/i', 'foo'));
     }
 
     public function testSortWords()
@@ -97,7 +97,7 @@ class BasicTransformerTest extends \PHPUnit_Framework_TestCase
         $string = 'foo € foo';
         $expected = 'foo &euro; foo';
 
-        $this->assertSame($expected, $this->extension->htmlEntityEncode($string));
+        $this->assertSame($expected, $this->extension->htmlEntityEncode($string, null));
     }
 
     public function testhtmlEntityDecode()

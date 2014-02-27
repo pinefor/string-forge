@@ -25,7 +25,7 @@ class AsciifyTest extends \PHPUnit_Framework_TestCase
 
         foreach ($locales as $locale) {
             setlocale(LC_ALL, $locale);
-            $this->assertSame($expected, $this->extension->asciify($string));
+            $this->assertSame($expected, $this->extension->asciify($string, null));
         }
     }
 
@@ -34,7 +34,7 @@ class AsciifyTest extends \PHPUnit_Framework_TestCase
         $string = '¡¿ÁaéEúüÜèóïçÇñÑ?!';
         $expected = 'AaeEuuUeoiçÇñÑ?!';
 
-        $this->assertSame($expected, $this->extension->asciify($string, ['ñ','Ñ','Ç','ç']));
+        $this->assertSame($expected, $this->extension->asciify($string, null, ['ñ','Ñ','Ç','ç']));
     }
 
     public function testSlugifly()
@@ -42,7 +42,7 @@ class AsciifyTest extends \PHPUnit_Framework_TestCase
         $string = '¡ ¿ Á a é E ú ü Ü è ó ï ç Ç ñ Ñ ? ! ';
         $expected = 'a-e-u-u-e-o-i-c-n';
 
-        $this->assertSame($expected, $this->extension->slugify($string));
+        $this->assertSame($expected, $this->extension->slugify($string, null));
     }
 
 }

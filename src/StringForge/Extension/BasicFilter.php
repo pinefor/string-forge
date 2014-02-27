@@ -13,9 +13,9 @@ class BasicFilter implements Extension
         return $string;
     }
 
-    public function removeAlpha($string, $caseSens = false)
+    public function removeAlpha($string, $locale = null, $caseSens = false)
     {
-        $string = preg_replace('~[a-z]~' . ($caseSens ? '' : 'i'), '', $string);
+        $string = preg_replace('~[a-zñ]~' . ($caseSens ? '' : 'i'), '', $string);
 
         return $string;
     }
@@ -27,17 +27,17 @@ class BasicFilter implements Extension
         return $string;
     }
 
-    public function onlyAlpha($string, $caseSens = false)
+    public function onlyAlpha($string, $locale = null, $caseSens = false)
     {
-        $string = preg_replace('~[^a-z]~' . ($caseSens ? '' : 'i'), '', $string);
+        $string = preg_replace('~[^a-zñ]~' . ($caseSens ? '' : 'i'), '', $string);
 
         return $string;
     }
 
-    public function onlyAlphaNum($string, $removeSpaces = true )
+    public function onlyAlphaNum($string, $locale = null, $removeSpaces = true )
     {
         $string = preg_replace(
-            '/[^a-z0-9' . ( $removeSpaces ? '' : '\s' ) . ']/i',
+            '/[^a-zñ0-9' . ( $removeSpaces ? '' : '\s' ) . ']/i',
             '',
             $string
         );
@@ -45,7 +45,7 @@ class BasicFilter implements Extension
         return $string;
     }
 
-    public function removeChars($string, $chars)
+    public function removeChars($string, $locale = null, $chars)
     {
         $string = preg_replace(
             '/' . implode( '|', array_map( 'preg_quote', $chars ) ) . '/u',

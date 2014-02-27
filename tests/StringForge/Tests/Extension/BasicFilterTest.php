@@ -59,7 +59,7 @@ class BasicFilterTest extends \PHPUnit_Framework_TestCase
         $string = 'as3i23 4jh523.';
         $expected = 'as3i23 4jh523';
 
-        $this->assertSame($expected, $this->extension->onlyAlphaNum($string, false));
+        $this->assertSame($expected, $this->extension->onlyAlphaNum($string, null, false));
     }
 
     public function testRemoveChars()
@@ -67,7 +67,7 @@ class BasicFilterTest extends \PHPUnit_Framework_TestCase
         $string = 'I, love ice-cream [indeed].';
         $expected = 'I love icecream indeed';
 
-        $this->assertSame($expected, $this->extension->removeChars($string, ['.',',','-','[',']']));
+        $this->assertSame($expected, $this->extension->removeChars($string, null, ['.',',','-','[',']']));
     }
 
     public function testRemoveParentheses()

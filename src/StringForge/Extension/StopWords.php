@@ -14,6 +14,12 @@ class StopWords implements Extension
     const TYPE_CITIES = 'Cities';
 
     private $words = []; 
+    private $asciify;
+
+    public function __construct()
+    {
+        $this->asciify = new Asciify();
+    }
 
     public function filterCommonWords($string, $locale)
     {
@@ -70,9 +76,14 @@ class StopWords implements Extension
     {
         $words = [];
         foreach(file($file) as $word) {
-            $word = trim($word);
+            $word = trim($word);           
             if ($word != '') {
                 $words[] = $word;
+
+                $wordASCII = $this->asciify->asciify($word);
+                if ($word != $wordASCII) {
+                    $words[] = $wordASCII;
+                }
             }
         }
 
