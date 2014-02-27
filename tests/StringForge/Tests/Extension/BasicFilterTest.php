@@ -1,17 +1,17 @@
 <?php
 namespace StringForge\Tests\Extension;
 
-use StringForge\Extension\BasicOps;
+use StringForge\Extension\BasicFilter;
 use StringForge\StringForge;
 use StringForge\String;
 
-class BasicOpsTest extends \PHPUnit_Framework_TestCase
+class BasicFilterTest extends \PHPUnit_Framework_TestCase
 {
     private $forge;
 
     public function setUp()
     {
-        $this->extension = new BasicOps();
+        $this->extension = new BasicFilter();
     }
 
     public function testRemoveNum()

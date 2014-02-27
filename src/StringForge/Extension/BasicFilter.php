@@ -4,7 +4,7 @@ namespace StringForge\Extension;
 use StringForge\Extension;
 use StringForge\StringForge;
 
-class BasicOps implements Extension
+class BasicFilter implements Extension
 {
     public function removeNum($string)
     {
@@ -96,13 +96,4 @@ class BasicOps implements Extension
 
         return trim($string);
     }
-
-    private function ASCIItranslit($string)
-    {
-        $string = preg_replace('~[¿¡]~u','',$string);
-        $string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
-
-        return $string;
-    }
-
 }

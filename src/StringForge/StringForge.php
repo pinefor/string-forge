@@ -19,9 +19,10 @@ class StringForge
 
     protected function loadBuiltInExtension()
     {
+        $this->add(new Extension\BasicTransformer());
+        $this->add(new Extension\BasicFilter());
         $this->add(new Extension\StopWords());
         $this->add(new Extension\Asciify());
-        $this->add(new Extension\BasicOps());
         $this->add(new Extension\Email());
         $this->add(new Extension\PostalCode());
         $this->add(new Extension\TagOps());
