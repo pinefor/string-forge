@@ -82,9 +82,21 @@ class StringForge
 
     public function create($string, $locale = null)
     {
+        if (!$locale) {
+            $locale = $this->getCurrentLocale();
+        }
+
         $object = new String($this, $locale);
         $object->setValue($string);
 
         return $object;
+    }
+
+    private function getCurrentLocale()
+    {
+        $fullLocale = setlocale(LC_MESSAGES, "0");
+
+        $locale = explode('.', $fullLocale);
+        return $locale[0];
     }
 }
