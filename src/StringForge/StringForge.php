@@ -46,11 +46,13 @@ class StringForge
     {
         $methodName = $method->name;
 
-        if ( $this->hasMethod($methodName) ) {
-            throw new InvalidArgumentException(sprintf(
-                'Another method with the name "%s" already exists.', 
-                $methodName
-            ));
+        if ($this->hasMethod($methodName)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Another method with the name "%s" already exists.', 
+                    $methodName
+                )
+            );
         }
 
         $this->methods[$methodName] = [$extension, $methodName];
@@ -64,9 +66,12 @@ class StringForge
     public function execute($method, $locale, $string, $args)
     {
         if (!$this->hasMethod($method)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Unknown method "%s".', $method
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Unknown method "%s".', 
+                    $method
+                )
+            );
         }
 
         return call_user_func_array(

@@ -1,5 +1,6 @@
 <?php
 namespace StringForge\Tests\Extension;
+
 use StringForge\Extension\Asciify;
 use StringForge\StringForge;
 use StringForge\String;

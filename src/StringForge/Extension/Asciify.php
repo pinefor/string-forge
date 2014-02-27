@@ -1,5 +1,6 @@
 <?php
 namespace StringForge\Extension;
+
 use StringForge\Extension;
 use StringForge\StringForge;
 

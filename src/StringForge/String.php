@@ -17,7 +17,7 @@ class String
         $this->string = $string;
     }
 
-    public function __call($function, Array $args)
+    public function __call($function, array $args)
     {
         $this->string = $this->forge->execute(
             $function, 

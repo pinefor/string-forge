@@ -1,5 +1,6 @@
 <?php
 namespace StringForge\Tests\Extension;
+
 use StringForge\Extension\PostalCode;
 use StringForge\StringForge;
 use StringForge\String;

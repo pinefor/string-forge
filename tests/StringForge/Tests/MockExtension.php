@@ -1,17 +1,11 @@
 <?php
 namespace StringForge\Tests;
+
 use StringForge\Extension;
 use StringForge\StringForge;
 
 class MockExtension implements Extension
 {
-    public function register(StringForge $forge)
-    {
-        $forge->register('exampleFunction', [$this, 'exampleFunction']);
-        $forge->register('exampleFunctionWithArgs', [$this, 'exampleFunctionWithArgs']);
-
-    }
-
     // Plain
     public function foo($string)
     {
