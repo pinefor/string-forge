@@ -1,35 +1,84 @@
 <?php
 namespace StringForge\Tests;
+
+use Mockery as m;
 use StringForge\StringForge;
 
 class StringForgeTest extends \PHPUnit_Framework_TestCase
 {
+    const EXAMPLE_LOCALE = 'en_US';
+    const EXAMPLE_STRING = 'qux';
+    const EXAMPLE_METHOD = 'foo';
+    const EXAMPLE_METHOD_WITH_LOCALE = 'bar';
+    const EXAMPLE_METHOD_WITH_LOCALE_AND_ARGS = 'baz';
+    const EXAMPLE_INVALID_METHOD = 'qux';
+    const EXAMPLE_BUILTIN_METHOD = 'asciify';
+
+    public function testConstructor()
+    {
+        $forge = new StringForge();
+        $this->assertTrue($forge->hasMethod(self::EXAMPLE_BUILTIN_METHOD));
+
+        $forge = new StringForge(false);
+        $this->assertFalse($forge->hasMethod(self::EXAMPLE_BUILTIN_METHOD));
+
+        $forge = new StringForge(true);
+        $this->assertTrue($forge->hasMethod(self::EXAMPLE_BUILTIN_METHOD));
+    }
+
     public function testAdd()
     {
         $forge = new StringForge;
 
-        $this->assertFalse($forge->hasFunction('exampleFunction'));
+        $this->assertFalse($forge->hasMethod(self::EXAMPLE_METHOD));
 
         $forge->add(new MockExtension);
-        $this->assertTrue($forge->hasFunction('exampleFunction'));
+        $this->assertTrue($forge->hasMethod(self::EXAMPLE_METHOD));
     }
 
     public function testExecute()
     {
         $forge = new StringForge;
         $forge->add(new MockExtension);
+        $string = $forge->execute(
+            self::EXAMPLE_METHOD,
+            null,
+            self::EXAMPLE_STRING,
+            []
+        );
 
-        $string = $forge->execute('exampleFunction', 'prueba', []);
-        $this->assertSame('PRUEBA', $string);
+        $this->assertSame('QUX', $string);
     }
 
-    public function testExecuteWithArgs()
+    public function testExecuteWithLocale()
     {
         $forge = new StringForge;
         $forge->add(new MockExtension);
 
-        $string = $forge->execute('exampleFunctionWithArgs', 'prueba', ['one', 'two']);
-        $this->assertSame('prueba-one-two', $string);
+        $string = $forge->execute(
+            self::EXAMPLE_METHOD_WITH_LOCALE,
+            self::EXAMPLE_LOCALE,
+            self::EXAMPLE_STRING,
+            []
+        );
+
+        $this->assertSame('qux-en_US', $string);
+    }
+
+    public function testExecuteWithLocaleAndArgs()
+    {
+        $args = ['one', 'two'];
+        $forge = new StringForge;
+        $forge->add(new MockExtension);
+
+        $string = $forge->execute(
+            self::EXAMPLE_METHOD_WITH_LOCALE_AND_ARGS,
+            self::EXAMPLE_LOCALE,
+            self::EXAMPLE_STRING,
+            $args
+        );
+
+        $this->assertSame('qux-en_US-one-two', $string);
     }
 
     /**
@@ -40,7 +89,12 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase
         $forge = new StringForge;
         $forge->add(new MockExtension);
 
-        $string = $forge->execute('notValidFuncion', 'prueba', []);
+        $string = $forge->execute(
+            self::EXAMPLE_INVALID_METHOD,
+            null,
+            self::EXAMPLE_STRING,
+            []
+        );
     }
 
     public function testCreate()

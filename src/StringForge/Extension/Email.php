@@ -1,15 +1,11 @@
 <?php
-namespace StringForge\Extensions;
+namespace StringForge\Extension;
+
 use StringForge\Extension;
 use StringForge\StringForge;
 
 class Email implements Extension
 {
-    public function register(StringForge $forge)
-    {
-        $forge->register('filterEmail', [$this, 'filterEmail']);
-    }
-
     public function filterEmail($string)
     {
         if ( preg_match(

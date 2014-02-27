@@ -1,50 +1,90 @@
 <?php
 namespace StringForge;
 
+use ReflectionObject;
+use ReflectionMethod;
+use InvalidArgumentException;
+use StringForge\Extension;
+
 class StringForge
 {
-    private $functions = [];
+    protected $methods = [];
+
+    public function __construct($autoLoadBuiltInExtension = true)
+    {
+        if ($autoLoadBuiltInExtension) {
+            $this->loadBuiltInExtension();
+        }
+    }
+
+    protected function loadBuiltInExtension()
+    {
+        $this->add(new Extension\Address());
+        $this->add(new Extension\Asciify());
+        $this->add(new Extension\BasicOps());
+        $this->add(new Extension\Email());
+        $this->add(new Extension\PostalCode());
+        $this->add(new Extension\TagOps());
+    }
 
     public function add(Extension $extension)
     {
-        $extension->register($this);
-
-        return true;
+        $methods = $this->getPublicMethodsFromExtension($extension);
+        foreach ($methods as $method) {
+            $this->registerMethod($extension, $method);
+        }
     }
 
-    public function register($function, array $callback)
+    protected function getPublicMethodsFromExtension(Extension $extension)
     {
-      if ( !is_string($function) || strlen($function) == 0 ) {
-            throw new \InvalidArgumentException(sprintf('Invalid $function "%s" given', $function));
-        }
+        $reflection = new ReflectionObject($extension);
 
-        if ( !is_callable($callback) ) {
-            throw new \InvalidArgumentException('Invalid $callback given');
-        }
-
-        if ( $this->hasFunction($function) ) {
-            throw new \InvalidArgumentException(sprintf('Another function with the name "%s" already exists.', $function));
-        }
-
-        $this->functions[$function] = $callback;
+        return $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
     }
 
-    public function hasFunction($function)
+    protected function registerMethod(Extension $extension, ReflectionMethod $method)
     {
-        return isset($this->functions[$function]);
-    }
+        $methodName = $method->name;
 
-    public function execute($function, $string, $args)
-    {
-        if ( !$this->hasFunction($function) ) {
-            throw new \InvalidArgumentException(sprintf('unknown function "%s".', $function));
+        if ($this->hasMethod($methodName)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Another method with the name "%s" already exists.', 
+                    $methodName
+                )
+            );
         }
 
-        return call_user_func_array($this->functions[$function], array_merge([$string], $args));
+        $this->methods[$methodName] = [$extension, $methodName];
     }
 
-    public function create($string)
+    public function hasMethod($method)
     {
-        return new String($this, $string);
+        return isset($this->methods[$method]);
+    }
+
+    public function execute($method, $locale, $string, $args)
+    {
+        if (!$this->hasMethod($method)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Unknown method "%s".', 
+                    $method
+                )
+            );
+        }
+
+        return call_user_func_array(
+            $this->methods[$method], 
+            array_merge([$string, $locale], $args)
+        );
+    }
+
+    public function create($string, $locale = null)
+    {
+        $object = new String($this, $locale);
+        $object->setValue($string);
+
+        return $object;
     }
 }
