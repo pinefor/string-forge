@@ -19,7 +19,7 @@ class StringForge
 
     protected function loadBuiltInExtension()
     {
-        $this->add(new Extension\Address());
+        $this->add(new Extension\StopWords());
         $this->add(new Extension\Asciify());
         $this->add(new Extension\BasicOps());
         $this->add(new Extension\Email());
