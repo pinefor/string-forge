@@ -125,9 +125,9 @@ class Asciify implements Extension
         ];
     }
 
-    public function asciify($string, $saveChars = false)
+    public function asciify($string, $locale = null, $saveChars = null)
     {
-        if ($saveChars !== false) {
+        if ($saveChars) {
             foreach ($saveChars as $key => $char) {
                 $string = preg_replace(
                     '/' . $char . '/u',
@@ -146,7 +146,7 @@ class Asciify implements Extension
         return $string;
     }
 
-    public function slugify($string, $separator = '-', $saveChars = false)
+    public function slugify($string, $locale = null, $separator = '-', $saveChars = null)
     {
         $ascii = $this->asciify($string, $saveChars);
         $slug = preg_replace('/([^a-z0-9]|-)+/', $separator, $ascii);

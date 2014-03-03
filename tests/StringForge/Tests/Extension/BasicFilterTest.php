@@ -1,17 +1,17 @@
 <?php
 namespace StringForge\Tests\Extension;
 
-use StringForge\Extension\BasicOps;
+use StringForge\Extension\BasicFilter;
 use StringForge\StringForge;
 use StringForge\String;
 
-class BasicOpsTest extends \PHPUnit_Framework_TestCase
+class BasicFilterTest extends \PHPUnit_Framework_TestCase
 {
     private $forge;
 
     public function setUp()
     {
-        $this->extension = new BasicOps();
+        $this->extension = new BasicFilter();
     }
 
     public function testRemoveNum()
@@ -59,7 +59,7 @@ class BasicOpsTest extends \PHPUnit_Framework_TestCase
         $string = 'as3i23 4jh523.';
         $expected = 'as3i23 4jh523';
 
-        $this->assertSame($expected, $this->extension->onlyAlphaNum($string, false));
+        $this->assertSame($expected, $this->extension->onlyAlphaNum($string, null, false));
     }
 
     public function testRemoveChars()
@@ -67,7 +67,7 @@ class BasicOpsTest extends \PHPUnit_Framework_TestCase
         $string = 'I, love ice-cream [indeed].';
         $expected = 'I love icecream indeed';
 
-        $this->assertSame($expected, $this->extension->removeChars($string, ['.',',','-','[',']']));
+        $this->assertSame($expected, $this->extension->removeChars($string, null, ['.',',','-','[',']']));
     }
 
     public function testRemoveParentheses()

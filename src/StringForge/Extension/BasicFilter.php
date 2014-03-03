@@ -4,7 +4,7 @@ namespace StringForge\Extension;
 use StringForge\Extension;
 use StringForge\StringForge;
 
-class BasicOps implements Extension
+class BasicFilter implements Extension
 {
     public function removeNum($string)
     {
@@ -13,9 +13,9 @@ class BasicOps implements Extension
         return $string;
     }
 
-    public function removeAlpha($string, $caseSens = false)
+    public function removeAlpha($string, $locale = null, $caseSens = false)
     {
-        $string = preg_replace('~[a-z]~' . ($caseSens ? '' : 'i'), '', $string);
+        $string = preg_replace('~[a-zñ]~' . ($caseSens ? '' : 'i'), '', $string);
 
         return $string;
     }
@@ -27,17 +27,17 @@ class BasicOps implements Extension
         return $string;
     }
 
-    public function onlyAlpha($string, $caseSens = false)
+    public function onlyAlpha($string, $locale = null, $caseSens = false)
     {
-        $string = preg_replace('~[^a-z]~' . ($caseSens ? '' : 'i'), '', $string);
+        $string = preg_replace('~[^a-zñ]~' . ($caseSens ? '' : 'i'), '', $string);
 
         return $string;
     }
 
-    public function onlyAlphaNum($string, $removeSpaces = true )
+    public function onlyAlphaNum($string, $locale = null, $removeSpaces = true )
     {
         $string = preg_replace(
-            '/[^a-z0-9' . ( $removeSpaces ? '' : '\s' ) . ']/i',
+            '/[^a-zñ0-9' . ( $removeSpaces ? '' : '\s' ) . ']/i',
             '',
             $string
         );
@@ -45,7 +45,7 @@ class BasicOps implements Extension
         return $string;
     }
 
-    public function removeChars($string, $chars)
+    public function removeChars($string, $locale = null, $chars)
     {
         $string = preg_replace(
             '/' . implode( '|', array_map( 'preg_quote', $chars ) ) . '/u',
@@ -96,13 +96,4 @@ class BasicOps implements Extension
 
         return trim($string);
     }
-
-    private function ASCIItranslit($string)
-    {
-        $string = preg_replace('~[¿¡]~u','',$string);
-        $string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
-
-        return $string;
-    }
-
 }
