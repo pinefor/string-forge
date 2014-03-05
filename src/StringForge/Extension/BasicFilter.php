@@ -56,7 +56,7 @@ class BasicFilter implements Extension
         return $string;
     }
 
-    public function removeParentheses($string)
+    public function removeParenthesis($string)
     {
         return preg_replace('~\(.*?\)~', '', $string);
     }
