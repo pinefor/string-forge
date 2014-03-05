@@ -14,7 +14,7 @@ class PostalCode implements Extension
         'es_ES' => '~.*?\b((?:5[0-2]|[0-4][0-9])[0-9]{3})\b.*~',
         'it_IT' => '~.*?\b([0-9]{5})\b.*~',
         'pt_PT' => '~.*?\b([0-9]{4})\b.*~',
-
+        'fr_FR' => '~.*?\b([0-9]{5})\b.*~'
     ];
 
     public function filterPostalCode($string, $locale)
