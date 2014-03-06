@@ -8,7 +8,7 @@ class TagOps implements Extension
 {
     public function removeTagAttributes($string)
     {
-        return preg_replace('~<([a-z][a-z0-9]*)[^>]*?(/?)>~i','<$1$2>', $string);
+        return preg_replace('~<([a-z][a-z0-9]*)[^>]*?(/?)>~i', '<$1$2>', $string);
     }
 
     public function removeTags($string)
@@ -22,11 +22,16 @@ class TagOps implements Extension
 
         return trim(
             preg_replace(
-                '~<(/?)(?!' . implode('|',$validTags) . ').*?\s?.*?/?>~i',
+                '~<(/?)(?!' . implode('|', $validTags) . ').*?\s?.*?/?>~i',
                 ' ',
                 $string
             )
         );
+    }
+
+    public function removeAllTags($string)
+    {
+        return strip_tags($string);
     }
 
     public function removeLinks($string)

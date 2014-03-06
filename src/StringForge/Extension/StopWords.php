@@ -3,8 +3,8 @@ namespace StringForge\Extension;
 
 use StringForge\Extension;
 use StringForge\StringForge;
+use StringForge\FileReader;
 use StringForge\Exception\UnsupportedLocaleException;
-
 
 class StopWords implements Extension
 {
@@ -13,12 +13,12 @@ class StopWords implements Extension
     const TYPE_ADDRESS = 'Address';
     const TYPE_CITIES = 'Cities';
 
-    private $words = []; 
-    private $asciify;
+    private $words = [];
+    private $fileReader;
 
-    public function __construct()
+    public function __constuct()
     {
-        $this->asciify = new Asciify();
+        $this->fileReader = new FileReader();
     }
 
     public function filterCommonWords($string, $locale)
@@ -43,7 +43,7 @@ class StopWords implements Extension
         $words = $this->words[$type][$locale];
 
         $regexp = [];
-        array_walk($words, function($word) use (&$regexp) {
+        array_walk($words, function ($word) use (&$regexp) {
             $regexp[] = sprintf('~\b%s\b~ui', preg_quote($word));
         });
 
@@ -58,7 +58,7 @@ class StopWords implements Extension
             return;
         }
 
-        $this->loadStopWordsForLocale($type, $locale);        
+        $this->loadStopWordsForLocale($type, $locale);
     }
 
     protected function loadStopWordsForLocale($type, $locale)
@@ -68,26 +68,7 @@ class StopWords implements Extension
             throw new UnsupportedLocaleException();
         }
 
-
-        $this->words[$type][$locale] = $this->loadWordsResourceFile($file);
-    }
-
-    protected function loadWordsResourceFile($file)
-    {
-        $words = [];
-        foreach(file($file) as $word) {
-            $word = trim($word);           
-            if ($word != '') {
-                $words[] = $word;
-
-                $wordASCII = $this->asciify->asciify($word);
-                if ($word != $wordASCII) {
-                    $words[] = $wordASCII;
-                }
-            }
-        }
-
-        return $words;
+        $this->words[$type][$locale] = $this->fileReader->readFile($file);
     }
 
     protected function getResouceFile($type, $locale)
