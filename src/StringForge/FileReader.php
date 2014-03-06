@@ -18,6 +18,12 @@ class FileReader
         return $this->readFileLinesToArrayElements($file);
     }
 
+    public function readJSONFile($file)
+    {
+        $dealJson = file_get_contents($file);
+        return json_decode($dealJson, true);
+    }
+
     private function readFileLinesToArrayElements($file)
     {
         $array = [];
