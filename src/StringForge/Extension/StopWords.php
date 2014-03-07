@@ -68,7 +68,7 @@ class StopWords implements Extension
             throw new UnsupportedLocaleException();
         }
 
-        $this->words[$type][$locale] = $this->fileReader->readFile($file);
+        $this->words[$type][$locale] = $this->fileReader->read($file);
     }
 
     protected function getResouceFile($type, $locale)

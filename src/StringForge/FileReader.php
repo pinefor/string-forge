@@ -13,7 +13,7 @@ class FileReader
         $this->asciify = new Asciify();
     }
 
-    public function readFile($file)
+    public function read($file)
     {
         return $this->readFileLinesToArrayElements($file);
     }
@@ -29,13 +29,14 @@ class FileReader
         $array = [];
         foreach (file($file) as $word) {
             $word = trim($word);
-            if ($word != '') {
-                $array[] = $word;
+            if ($word === '') {
+                continue;
+            }
+            $array[] = $word;
 
-                $wordASCII = $this->asciify->asciify($word);
-                if ($word != $wordASCII) {
-                    $array[] = $wordASCII;
-                }
+            $wordASCII = $this->asciify->asciify($word);
+            if ($word != $wordASCII) {
+                $array[] = $wordASCII;
             }
         }
 
