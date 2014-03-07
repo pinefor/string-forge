@@ -22,7 +22,7 @@ class BasicFilter implements Extension
 
     public function onlyNum($string)
     {
-        $string = preg_replace('~[^0-9]~', '', $string );
+        $string = preg_replace('~[^0-9]~', '', $string);
 
         return $string;
     }
@@ -34,7 +34,7 @@ class BasicFilter implements Extension
         return $string;
     }
 
-    public function onlyAlphaNum($string, $locale = null, $removeSpaces = true )
+    public function onlyAlphaNum($string, $locale = null, $removeSpaces = true)
     {
         $string = preg_replace(
             '/[^a-zñ0-9' . ( $removeSpaces ? '' : '\s' ) . ']/i',
@@ -45,10 +45,10 @@ class BasicFilter implements Extension
         return $string;
     }
 
-    public function removeChars($string, $locale = null, $chars)
+    public function removeChars($string, $locale = null, $chars = [])
     {
         $string = preg_replace(
-            '/' . implode( '|', array_map( 'preg_quote', $chars ) ) . '/u',
+            '/' . implode('|', array_map('preg_quote', $chars, '/')) . '/u',
             '',
             $string
         );
@@ -63,7 +63,7 @@ class BasicFilter implements Extension
 
     public function reduceSpaces($string)
     {
-        $string = preg_replace('~ {2,}~',' ',$string);
+        $string = preg_replace('~ {2,}~', ' ', $string);
 
         return $string;
     }
@@ -87,8 +87,8 @@ class BasicFilter implements Extension
         $string = preg_replace(
             [
                 '~([a-z0-9]) ([)\]}.,:;])~i', // Remove space betw string and stop.
-                '~([.,:;]) ([)\]}])~',        // Remove space betw stops.
-                '~([)\]}]) ([.,:;])~',        // (idem)
+                '~([.,:;]) ([)\]}])~', // Remove space betw stops.
+                '~([)\]}]) ([.,:;])~', // (idem)
             ],
             '$1$2',
             $string
