@@ -16,7 +16,7 @@ class StopWords implements Extension
     private $words = [];
     private $fileReader;
 
-    public function __constuct()
+    public function __construct()
     {
         $this->fileReader = new FileReader();
     }
