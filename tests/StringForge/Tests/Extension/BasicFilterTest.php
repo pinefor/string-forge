@@ -75,7 +75,7 @@ class BasicFilterTest extends \PHPUnit_Framework_TestCase
         $string = 'I (John Doe), love ice-cream [indeed].';
         $expected = 'I , love ice-cream [indeed].';
 
-        $this->assertSame($expected, $this->extension->removeParentheses($string));
+        $this->assertSame($expected, $this->extension->removeParenthesis($string));
     }
 
     public function testReduceSpaces()

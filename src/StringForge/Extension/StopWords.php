@@ -16,7 +16,7 @@ class StopWords implements Extension
     private $words = [];
     private $fileReader;
 
-    public function __constuct()
+    public function __construct()
     {
         $this->fileReader = new FileReader();
     }
@@ -67,7 +67,6 @@ class StopWords implements Extension
         if (!$file) {
             throw new UnsupportedLocaleException();
         }
-
         $this->words[$type][$locale] = $this->fileReader->read($file);
     }
 

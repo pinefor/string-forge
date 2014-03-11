@@ -35,7 +35,7 @@ class StringForge
             if ($method->name[0] == '_') {
                 continue;
             }
-            
+
             $this->registerMethod($extension, $method);
         }
     }
@@ -54,7 +54,7 @@ class StringForge
         if ($this->hasMethod($methodName)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Another method with the name "%s" already exists.', 
+                    'Another method with the name "%s" already exists.',
                     $methodName
                 )
             );
@@ -73,14 +73,14 @@ class StringForge
         if (!$this->hasMethod($method)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Unknown method "%s".', 
+                    'Unknown method "%s".',
                     $method
                 )
             );
         }
 
         return call_user_func_array(
-            $this->methods[$method], 
+            $this->methods[$method],
             array_merge([$string, $locale], $args)
         );
     }
