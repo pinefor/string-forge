@@ -67,7 +67,6 @@ class StopWords implements Extension
         if (!$file) {
             throw new UnsupportedLocaleException();
         }
-
         $this->words[$type][$locale] = $this->fileReader->read($file);
     }
 

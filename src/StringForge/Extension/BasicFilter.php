@@ -48,7 +48,7 @@ class BasicFilter implements Extension
     public function removeChars($string, $locale = null, $chars = [])
     {
         $string = preg_replace(
-            '/' . implode('|', array_map('preg_quote', $chars, '/')) . '/u',
+            '/' . implode('|', array_map('preg_quote', $chars, ['/'])) . '/u',
             '',
             $string
         );
