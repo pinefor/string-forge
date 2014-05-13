@@ -111,13 +111,13 @@ class StringForgeTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateWithDefaultLocale()
     {
-        setlocale(LC_MESSAGES, self::EXAMPLE_LOCALE_GB);
+        setlocale(LC_MESSAGES, self::EXAMPLE_LOCALE);
 
         $forge = new StringForge;
         $string = $forge->create('test');
 
         $this->assertInstanceOf('StringForge\String', $string);
         $this->assertSame('test', (string) $string);
-        $this->assertSame(self::EXAMPLE_LOCALE_GB, $string->getLocale());
+        $this->assertSame(self::EXAMPLE_LOCALE, $string->getLocale());
     }
 }
