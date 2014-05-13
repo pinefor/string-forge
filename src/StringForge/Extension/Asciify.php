@@ -149,7 +149,7 @@ class Asciify implements Extension
     public function slugify($string, $locale = null, $separator = '-', $saveChars = null)
     {
         $ascii = $this->asciify($string, $saveChars);
-        $slug = preg_replace('/([^a-z0-9]|-)+/', $separator, $ascii);
+        $slug = preg_replace('/([^a-z0-9]|-)+?/i', $separator, $ascii);
         $slug = strtolower($slug);
 
         return trim($slug, $separator);
