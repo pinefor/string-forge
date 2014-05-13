@@ -40,9 +40,24 @@ class AsciifyTest extends \PHPUnit_Framework_TestCase
     public function testSlugifly()
     {
         $string = '¡ ¿ Á a é E ú ü Ü è ó ï ç Ç ñ Ñ ? ! ';
-        $expected = 'a-e-u-u-e-o-i-c-n';
+        $expected = 'a-a-e-e-u-u-u-e-o-i-c-c-n-n';
 
         $this->assertSame($expected, $this->extension->slugify($string, null));
     }
 
+    public function testSlugiflyDoubleSpace()
+    {
+        $string = '¡ ¿ a  b';
+        $expected = 'a--b';
+
+        $this->assertSame($expected, $this->extension->slugify($string, null));
+    }
+
+    public function testSlugiflyUpercase()
+    {
+        $string = '¡ ¿ A  B';
+        $expected = 'a--b';
+
+        $this->assertSame($expected, $this->extension->slugify($string, null));
+    }
 }
