@@ -1,19 +1,19 @@
 {
-    "name": "yunait/string-forge",
-    "homepage": "https://github.com/yunait/string-forge",
+    "name": "pinefor/string-forge",
+    "homepage": "https://github.com/pinefor/string-forge",
     "type": "library",
-    "description": "String manupalation library",
+    "description": "A trunk full of useful string manipulation functions",
     "require": {
         "php": ">=5.4.0"
     },
     "authors": [
         {
             "name":  "Philip Thomas Casado",
-            "email": "philip@yunait.com"
+            "email": "filiptc@gmail.com"
         },
         {
             "name":  "Máximo Cuadros Ortiz",
-            "email": "maximo@yunait.com"
+            "email": "mcuadros@gmail.com"
         }
     ],
     "require": {

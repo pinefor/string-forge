@@ -1,4 +1,4 @@
-String-Forge 
+String-Forge [![Build Status](https://travis-ci.org/pinefor/string-forge.png?branch=master)](https://travis-ci.org/pinefor/string-forge)
 ==============================
 
 A trunk full of useful string manipulation functions
@@ -13,12 +13,12 @@ Installation
 ------------
 
 The recommended way to install StringForge is [through composer](http://getcomposer.org).
-You can see [the package information on Packagist.](https://packagist.org/packages/mcuadros/silex-newrelic)
+You can see [the package information on Packagist.](https://packagist.org/packages/pinefor/string-forge)
 
 ```JSON
 {
     "require": {
-        "yunait/string-forge": "dev-master"
+        "pinefor/string-forge": "dev-master"
     }
 }
 ```
